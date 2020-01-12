@@ -1,0 +1,24 @@
+nomad_version: 0.10.2
+nomad_url: https://releases.hashicorp.com/nomad/{{nomad_version}}/nomad_{{nomad_version}}_linux_amd64.zip
+nomad_interface: eth1
+nomad_client_interface: eth1
+nomad_configs: []
+nomad_user: nomad
+nomad_join_address:
+ - 192.168.3.10
+ - 192.168.3.11
+ - 192.168.3.12
+#nomad_localbuild: true
+
+consul_version: 1.6.2
+consul_url: https://releases.hashicorp.com/consul/{{consul_version}}/consul_{{consul_version}}_linux_amd64.zip
+consul_interface: eth1
+consul_join_address:
+ - 192.168.3.10
+ - 192.168.3.11
+ - 192.168.3.12
+consul_configs: []
+
+dcname: myhome
+regionname: earth
+dnsdomain: "node.consul service.consul"

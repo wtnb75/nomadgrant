@@ -1,0 +1,16 @@
+[Unit]
+Description=Consul daemon
+After=network.target
+
+[Service]
+Environment=CHECKPOINT_DISABLE=1
+Type=simple
+ExecStart=/usr/local/bin/consul agent -config-dir=/usr/local/etc/consul
+ExecStop=/bin/kill ${MAINPID}
+ExecReload=/usr/local/bin/consul reload
+Restart=on-failure
+User=consul
+Group=consul
+
+[Install]
+WantedBy=multi-user.target

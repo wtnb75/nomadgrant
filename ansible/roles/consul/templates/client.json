@@ -1,0 +1,8 @@
+{
+  "datacenter": "{{dcname}}",
+  "data_dir": "/var/consul",
+  "log_level": "INFO",
+  "bind_addr": "{%raw%}{{{%endraw%} GetInterfaceIP \"{{consul_interface}}\"{%raw%}}}{%endraw%}",
+  "node_name": "{{inventory_hostname_short}}",
+  "start_join": {{consul_join_address|to_json}}
+}

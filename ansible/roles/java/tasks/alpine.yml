@@ -1,0 +1,2 @@
+- name: java
+  apk: name=openjdk11-jre-headless

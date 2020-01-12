@@ -1,0 +1,8 @@
+- name: base package
+  yum: name=curl,unzip,dnsmasq,bind-utils
+- name: grub config
+  lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX='
+    line: 'GRUB_CMDLINE_LINUX="systemd.unified_cgroup_hierarchy=0"'
+  notify: grub2-mkconfig

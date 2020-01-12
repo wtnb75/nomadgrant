@@ -1,0 +1,14 @@
+#!/sbin/openrc-run
+
+export CHECKPOINT_DISABLE=1
+name="$SVCNAME"
+command="/usr/local/bin/$SVCNAME"
+command_args="agent -config=/usr/local/etc/nomad"
+command_background=true
+command_user="{{nomad_user|default("nomad")}}:nomad"
+
+pidfile="/var/run/$SVCNAME.pid"
+
+depend() {
+	need net
+}

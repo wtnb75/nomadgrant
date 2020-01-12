@@ -1,0 +1,3 @@
+- name: resolved
+  template: src=resolved.conf dest=/etc/systemd/resolved.conf
+  notify: restart resolved

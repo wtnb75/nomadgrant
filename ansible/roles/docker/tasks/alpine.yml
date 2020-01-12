@@ -1,0 +1,4 @@
+- name: prepare
+  apk: name=docker
+- name: group
+  user: name=docker system=yes

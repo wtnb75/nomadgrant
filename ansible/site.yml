@@ -1,0 +1,19 @@
+- hosts: all
+  roles:
+   - {role: base, tags: [base]}
+   - {role: consul, tags: [consul]}
+   - {role: dnsmasq, tags: [dnsmasq]}
+  become: yes
+- hosts: java
+  roles:
+   - {role: java, tags: [java]}
+  become: yes
+- hosts: nomad_server_only
+  roles:
+   - {role: nomad, tags: [nomad]}
+  become: yes
+- hosts: nomad
+  roles:
+   - {role: docker, tags: [docker]}
+   - {role: nomad, tags: [nomad]}
+  become: yes

@@ -1,0 +1,11 @@
+- name: nmcli resolver
+  command: nmcli c modify /org/freedesktop/NetworkManager/Settings/2 ipv4.dns 127.0.0.1
+- name: nmcli domain
+  command: "nmcli c modify /org/freedesktop/NetworkManager/Settings/2 ipv4.dns-search '{{dnsdomain}}'"
+- name: disable auto dns
+  command: "nmcli c modify {{item}} ipv4.ignore-auto-dns yes"
+  with_items:
+    - /org/freedesktop/NetworkManager/Settings/1
+    - /org/freedesktop/NetworkManager/Settings/2
+- name: nm restart
+  service: name=NetworkManager state=restarted

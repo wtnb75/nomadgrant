@@ -1,0 +1,11 @@
+- name: config file
+  template: src=consul.conf dest=/etc/dnsmasq.d/10-consul.conf owner=root group=root mode=0644
+  notify: restart dnsmasq
+- include_tasks: resolved.yml
+  when: ansible_distribution == "Ubuntu"
+- include_tasks: nmcli.yml
+  when: ansible_distribution == "CentOS"
+- include_tasks: resolvconf.yml
+  when: ansible_distribution == "Alpine"
+- include_tasks: resolvconf.yml
+  when: ansible_distribution == "Arch Linux"

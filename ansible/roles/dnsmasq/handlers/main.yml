@@ -1,0 +1,4 @@
+- name: restart dnsmasq
+  service: name=dnsmasq state=restarted enabled=yes
+- name: restart resolved
+  service: name=systemd-resolved state=restarted

@@ -1,0 +1,29 @@
+- name: group
+  group: name=docker system=yes
+- name: user
+  user: name=nomad groups=docker
+- name: extract
+  unarchive: src={{nomad_url}} dest=/usr/local/bin remote_src=yes creates=/usr/local/bin/nomad
+  when: nomad_localbuild is not defined
+- name: extract
+  unarchive: src=nomad.zip dest=/usr/local/bin remote_src=no creates=/usr/local/bin/nomad
+  when: nomad_localbuild is defined
+- name: directory
+  file: state=directory dest=/var/nomad owner={{nomad_user|default("nomad")}} group=nomad mode=0755
+- name: config dir
+  file: state=directory dest=/usr/local/etc/nomad owner=root group=root mode=0755
+- name: systemd
+  template: src=nomad.service dest=/lib/systemd/system/nomad.service owner=root group=root mode=0644
+  notify:
+    - reload systemd
+    - restart nomad
+  when: ansible_service_mgr == "systemd"
+- name: openrc
+  template: src=nomad.openrc dest=/etc/init.d/nomad owner=root group=root mode=0755
+  notify:
+    - restart nomad
+  when: ansible_service_mgr == "openrc"
+- name: config files
+  template: src={{item}} dest=/usr/local/etc/nomad/{{item}} owner=root group=root mode=0644
+  with_items: "{{ nomad_configs }}"
+  notify: restart nomad

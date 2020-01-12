@@ -1,0 +1,23 @@
+- name: extract
+  unarchive: src={{consul_url}} dest=/usr/local/bin remote_src=yes creates=/usr/local/bin/consul
+- name: user
+  user: name=consul
+- name: mkdir
+  file: state=directory path=/var/consul owner=consul group=consul mode=0755
+- name: mkdir
+  file: state=directory path=/usr/local/etc/consul owner=root group=root mode=0755
+- name: systemctl
+  template: src=consul.service dest=/lib/systemd/system/consul.service owner=root group=root mode=0644
+  notify:
+    - reload systemd
+    - restart consul
+  when: ansible_service_mgr == "systemd"
+- name: openrc
+  template: src=consul.openrc dest=/etc/init.d/consul owner=root group=root mode=0755
+  notify:
+    - restart consul
+  when: ansible_service_mgr == "openrc"
+- name: config
+  template: src={{item}} dest=/usr/local/etc/consul/{{item}} owner=root group=root mode=0644
+  with_items: "{{consul_configs}}"
+  notify: restart consul

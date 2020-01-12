@@ -1,0 +1,9 @@
+{
+{% if ansible_service_mgr == "systemd" %}
+  "exec-opts": ["native.cgroupdriver=systemd"],
+{% endif %}
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  }
+}

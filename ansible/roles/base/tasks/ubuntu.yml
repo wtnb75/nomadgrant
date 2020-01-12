@@ -1,0 +1,3 @@
+- name: install base package
+  apt: name=curl,unzip,vim-tiny,dnsmasq,dnsutils update_cache=yes
+- import_tasks: vim_ubuntu.yml

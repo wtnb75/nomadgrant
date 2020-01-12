@@ -1,0 +1,15 @@
+[Unit]
+Description=Nomad daemon
+After=network.target docker.service
+
+[Service]
+Environment=CHECKPOINT_DISABLE=1
+Type=simple
+ExecStart=/usr/local/bin/nomad agent -config=/usr/local/etc/nomad
+ExecStop=/bin/kill ${MAINPID}
+Restart=on-failure
+User={{nomad_user|default("nomad")}}
+Group=nomad
+
+[Install]
+WantedBy=multi-user.target

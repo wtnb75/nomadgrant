@@ -1,0 +1,6 @@
+- name: java
+  apt: name=openjdk-11-jre-headless
+  when: ansible_distribution_major_version == "18"
+- name: java
+  apt: name=openjdk-9-jre-headless
+  when: ansible_distribution_major_version == "16"

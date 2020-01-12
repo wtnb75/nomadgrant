@@ -1,0 +1,1 @@
+consul_configs: [server.json, client.json]
