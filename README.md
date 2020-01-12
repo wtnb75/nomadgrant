@@ -46,3 +46,7 @@ you can customize some settings. modify [ansible.groups](./Vagrantfile#L58)
 - exec-driver, java-driver can be used on some nomad client node (nomad-server run as root user)
 
 ![default settings](nomad1_1.svg)
+
+# Links
+
+- [kubegrant](https://github.com/wtnb75/kubegrant): you need k8s?
